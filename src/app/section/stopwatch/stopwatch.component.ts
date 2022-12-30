@@ -6,7 +6,7 @@ import {PageToggleService} from "../../share/page-toggle.service";
   selector: 'app-stopwatch',
   templateUrl: './stopwatch.component.html',
   styleUrls: ['./stopwatch.component.scss'],
-  providers: [PageToggleService]
+  //providers: [PageToggleService]
 })
 export class StopwatchComponent {
 
@@ -19,7 +19,7 @@ export class StopwatchComponent {
   constructor(
     private router : Router,
     //접근제한자를 설정해주면 멤버변수로 자동으로 등록
-    private pageToggleService : PageToggleService
+    public pageToggleService : PageToggleService
 
   ) { }
 

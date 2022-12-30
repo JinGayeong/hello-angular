@@ -1,9 +1,11 @@
 import {Component, Input, SimpleChange} from '@angular/core';
+import {PageToggleService} from "../../../share/page-toggle.service";
 
 @Component({
   selector: 'app-time-display',
   templateUrl: './time-display.component.html',
-  styleUrls: ['./time-display.component.scss']
+  styleUrls: ['./time-display.component.scss'],
+  providers: [PageToggleService]
 })
 export class TimeDisplayComponent {
 
@@ -15,7 +17,9 @@ export class TimeDisplayComponent {
 
   timeInterval: NodeJS.Timer | undefined;
 
-  constructor() {
+  constructor(
+    public pageToggleService : PageToggleService
+  ) {
 /*    setInterval(() => {
 
       this.test ++;
@@ -24,10 +28,48 @@ export class TimeDisplayComponent {
 
   }
 
+  ngOnChanges(changes: SimpleChange){
+    console.log('ng on changes');
+    for (let propName in changes) {
+
+    }
+  }
+  ngOnInit() {
+    console.log('ng on init')
+  }
+  ngDoCheck() {
+    console.log('ng do check')
+  }
+  ngAfterContentInit() {
+    console.log('ng after content init')
+  }
+  ngAfterContentChecked() {
+    console.log('ng after content checked')
+  }
+  ngAfterViewInit() {
+    console.log('ng after view init')
+  }
+  ngAfterViewChecked() {
+    console.log('ng after view checked')
+  }
+  ngDestroy() {
+    console.log('ng destroy')
+  }
+
 
   timeStart(){
+    //this.pageToggleService.plusCount();
+
     this.timeStop();
     this.timeInterval = setInterval(() => {
+      if(this.ms >= 100) {
+        this.ms = 0;
+        this.sec++;
+      }
+      if(this.sec >= 60) {
+        this.sec = 0;
+        this.min++;
+      }
       this.ms++;
     }, 10)
   }
@@ -39,6 +81,8 @@ export class TimeDisplayComponent {
   timeReset(){
     this.timeStop();
     this.ms = 0;
+    this.sec = 0;
+    this.min = 0;
   }
 
 /*  ngOnChanges(changes: SimpleChange) {
